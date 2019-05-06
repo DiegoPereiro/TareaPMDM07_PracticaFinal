@@ -1,3 +1,15 @@
 <resources>
     <string name="app_name">TareaPMDM07_PracticaFinal</string>
+    <string name="practica_final">Practica final</string>
+    <string name="by_diego_castro_freijo">By Diego Castro Freijo</string>
+    <string name="iniciar_sesi_n">Iniciar sesión</string>
+    <string name="contrase_a">Contraseña</string>
+    <string name="usuario">Usuario</string>
+    <string name="title_activity_principal">Principal</string>
+    <string name="navigation_drawer_open">Open navigation drawer</string>
+    <string name="navigation_drawer_close">Close navigation drawer</string>
+    <string name="nav_header_title">Android Studio</string>
+    <string name="nav_header_subtitle">android.studio@android.com</string>
+    <string name="nav_header_desc">Navigation header</string>
+    <string name="action_settings">Settings</string>
 </resources>
