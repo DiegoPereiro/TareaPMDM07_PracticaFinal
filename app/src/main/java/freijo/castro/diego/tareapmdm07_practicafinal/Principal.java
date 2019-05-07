@@ -3,6 +3,7 @@ package freijo.castro.diego.tareapmdm07_practicafinal;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
+import android.util.Log;
 import android.view.View;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
@@ -80,20 +81,20 @@ public class Principal extends AppCompatActivity
         // Handle navigation view item clicks here.
         int id = item.getItemId();
 
-        if (id == R.id.nav_camera) {
-            // Handle the camera action
-        } else if (id == R.id.nav_gallery) {
+        switch (id){
+            case R.id.nav_principal:
+                Log.e("princi", "pal");
 
-        } else if (id == R.id.nav_slideshow) {
+                break;
+            case R.id.nav_clientes:
+                Log.e("clien", "tes");
 
-        } else if (id == R.id.nav_manage) {
+                break;
+            case R.id.nav_factura:
+                Log.e("factu", "ra");
 
-        } else if (id == R.id.nav_share) {
-
-        } else if (id == R.id.nav_send) {
-
+                break;
         }
-
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         drawer.closeDrawer(GravityCompat.START);
         return true;

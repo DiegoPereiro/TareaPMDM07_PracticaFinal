@@ -20,7 +20,8 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void iniciarSesion(View view) {
-
-
+        Intent intent=new Intent(this, Principal.class);
+        startActivity(intent);
+        finish();
     }
 }
