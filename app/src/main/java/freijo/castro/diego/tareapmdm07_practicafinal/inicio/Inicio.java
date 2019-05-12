@@ -4,20 +4,21 @@ import android.content.Context;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 
 import freijo.castro.diego.tareapmdm07_practicafinal.R;
+import freijo.castro.diego.tareapmdm07_practicafinal.clientes.Clientes;
+import freijo.castro.diego.tareapmdm07_practicafinal.clientes.NuevoCliente;
 
 
 public class Inicio extends Fragment {
     private View vista;
 
     private Button btnListaClientes, btnNuevoCliente, btnListaFacturas, btnNuevaFactura;
-
-
 
 
     private OnFragmentInteractionListener mListener;
@@ -29,22 +30,45 @@ public class Inicio extends Fragment {
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        vista=inflater.inflate(R.layout.inicio, container, false);
-        btnListaClientes=(Button) vista.findViewById(R.id.btnListaClientes);
-        btnNuevoCliente=(Button) vista.findViewById(R.id.btnNuevoCliente);
-        btnListaFacturas=(Button) vista.findViewById(R.id.btnListaFacturas);
-        btnNuevaFactura=(Button) vista.findViewById(R.id.btnNuevaFactura);
+        vista = inflater.inflate(R.layout.inicio, container, false);
+        btnListaClientes = (Button) vista.findViewById(R.id.btnListaClientes);
+        btnNuevoCliente = (Button) vista.findViewById(R.id.btnNuevoCliente);
+        btnListaFacturas = (Button) vista.findViewById(R.id.btnListaFacturas);
+        btnNuevaFactura = (Button) vista.findViewById(R.id.btnNuevaFactura);
 
+
+        controlComponentes();
         return vista;
     }
 
+    private void controlComponentes() {
+        btnListaClientes.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.lyInicio, new Clientes()).addToBackStack(null).commit();
+            }
+        });
+        btnNuevoCliente.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.lyInicio, new NuevoCliente()).addToBackStack(null).commit();
+            }
+        });
+        btnListaFacturas.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+            }
+        });
+        btnNuevaFactura.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+            }
+        });
 
 
-
-
-
-
-
+    }
 
 
     public void onButtonPressed(Uri uri) {

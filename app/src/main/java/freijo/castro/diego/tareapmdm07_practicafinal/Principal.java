@@ -17,9 +17,10 @@ import android.view.Menu;
 import android.view.MenuItem;
 
 import freijo.castro.diego.tareapmdm07_practicafinal.clientes.Clientes;
+import freijo.castro.diego.tareapmdm07_practicafinal.clientes.NuevoCliente;
 import freijo.castro.diego.tareapmdm07_practicafinal.inicio.Inicio;
 
-public class Principal extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener, Inicio.OnFragmentInteractionListener, Clientes.OnFragmentInteractionListener {
+public class Principal extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener, Inicio.OnFragmentInteractionListener, Clientes.OnFragmentInteractionListener, NuevoCliente.OnFragmentInteractionListener {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -50,7 +51,7 @@ public class Principal extends AppCompatActivity implements NavigationView.OnNav
         navigationView.setNavigationItemSelectedListener(this);
 
         FragmentManager fragmentManager=getSupportFragmentManager();
-        fragmentManager.beginTransaction().replace(R.id.lyPrincipal, new Inicio()).commit();
+        fragmentManager.beginTransaction().replace(R.id.lyInicio, new Inicio()).commit();
     }
 
     @Override
@@ -95,10 +96,10 @@ public class Principal extends AppCompatActivity implements NavigationView.OnNav
 
         switch (id){
             case R.id.nav_principal:
-                fragmentManager.beginTransaction().replace(R.id.lyPrincipal, new Inicio()).commit();
+                fragmentManager.beginTransaction().replace(R.id.lyInicio, new Inicio()).commit();
                 break;
             case R.id.nav_clientes:
-                fragmentManager.beginTransaction().replace(R.id.lyPrincipal, new Clientes()).commit();
+                fragmentManager.beginTransaction().replace(R.id.lyInicio, new Clientes()).commit();
                 break;
             case R.id.nav_factura:
                 Log.e("factu", "ra");
