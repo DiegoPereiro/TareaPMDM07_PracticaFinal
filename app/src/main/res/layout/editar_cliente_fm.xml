@@ -3,7 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".clientes.NuevoCliente">
+    tools:context=".clientes.EditarClienteFm">
 
 
     <LinearLayout
@@ -16,9 +16,10 @@
             android:id="@+id/textView22"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="@color/colorClientesTitulos"
+            android:background="@color/rojo_app"
             android:padding="1dp"
             android:text="Datos"
+            android:textColor="@android:color/background_light"
             android:textSize="10sp" />
 
         <LinearLayout
@@ -230,9 +231,10 @@
                 android:id="@+id/textView23"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:background="@color/colorClientesTitulos"
+                android:background="@color/rojo_app"
                 android:padding="1dp"
                 android:text="Forma de pago"
+                android:textColor="@android:color/background_light"
                 android:textSize="10sp" />
 
             <Spinner
@@ -321,9 +323,10 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:background="@color/colorClientesTitulos"
+                android:background="@color/rojo_app"
                 android:padding="1dp"
                 android:text="Facturación"
+                android:textColor="@android:color/background_light"
                 android:textSize="10sp" />
 
             <CheckBox

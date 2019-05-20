@@ -9,7 +9,9 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".partidas.PartidasAtv"></activity>
+        <activity android:name=".clientes.EditarClienteAtv"></activity>
+        <activity android:name=".partidas.EditarPartidaAtv" />
+        <activity android:name=".partidas.PartidasAtv" />
         <activity android:name=".clientes.ClientesAtv" />
         <activity android:name=".pendientes.EditarPendiente" />
         <activity android:name=".configuracion.Configuracion" />

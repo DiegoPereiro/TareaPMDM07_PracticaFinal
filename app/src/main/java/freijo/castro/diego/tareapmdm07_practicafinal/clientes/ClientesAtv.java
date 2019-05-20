@@ -48,12 +48,16 @@ public class ClientesAtv extends AppCompatActivity {
         btnNuevo.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
-                //getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.lyInicio, new NuevoCliente()).addToBackStack(null).commit();
+                Intent intent=new Intent(ClientesAtv.this, EditarClienteAtv.class);
+                startActivity(intent);
             }
         });
 
+    }
 
+    @Override
+    protected void onResume() {
+        super.onResume();
         cargarDatos("%");
     }
 

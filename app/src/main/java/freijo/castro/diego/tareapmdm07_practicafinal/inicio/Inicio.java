@@ -10,7 +10,6 @@ import android.view.ViewGroup;
 import android.widget.Button;
 
 import freijo.castro.diego.tareapmdm07_practicafinal.R;
-import freijo.castro.diego.tareapmdm07_practicafinal.clientes.NuevoCliente;
 import freijo.castro.diego.tareapmdm07_practicafinal.pendientes.Pendientes;
 
 

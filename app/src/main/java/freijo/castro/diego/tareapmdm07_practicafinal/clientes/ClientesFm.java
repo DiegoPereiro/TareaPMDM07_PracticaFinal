@@ -55,7 +55,7 @@ public class ClientesFm extends Fragment {
         btnNuevo.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.lyInicio, new NuevoCliente()).addToBackStack(null).commit();
+                getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.lyInicio, new EditarClienteFm()).addToBackStack(null).commit();
             }
         });
 

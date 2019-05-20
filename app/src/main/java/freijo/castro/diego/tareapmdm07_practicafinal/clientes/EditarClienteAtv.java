@@ -1,16 +1,10 @@
 package freijo.castro.diego.tareapmdm07_practicafinal.clientes;
 
 import android.content.ContentValues;
-import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;
-import android.database.sqlite.SQLiteOpenHelper;
-import android.net.Uri;
+import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.support.v4.app.Fragment;
-import android.util.Log;
-import android.view.LayoutInflater;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.EditText;
@@ -24,8 +18,9 @@ import freijo.castro.diego.tareapmdm07_practicafinal.MainActivity;
 import freijo.castro.diego.tareapmdm07_practicafinal.R;
 import freijo.castro.diego.tareapmdm07_practicafinal.basedatos.BaseDatos;
 import freijo.castro.diego.tareapmdm07_practicafinal.inicio.Inicio;
+import freijo.castro.diego.tareapmdm07_practicafinal.partidas.EditarPartidaAtv;
 
-public class NuevoCliente extends Fragment {
+public class EditarClienteAtv extends AppCompatActivity {
     private ImageView btnEliminar;
     private TextView tvTitulo;
     private EditText etCif, etNombre, etVia, etDireccion, etNumero, etEscalera, etPiso, etPuerta, etCodigoPostal, etMunicipio, etProvincia, etPais, etTelefono1, etTelefono2, etFax, etEmail, etIban, etPago1, etPago2, etPago3, etPago4;
@@ -36,55 +31,46 @@ public class NuevoCliente extends Fragment {
 
     private SQLiteDatabase baseDatos;
 
-    private OnFragmentInteractionListener mListener;
-    private View vista;
-
-
-    public NuevoCliente() {
-        // Required empty public constructor
-    }
-
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        vista = inflater.inflate(R.layout.nuevo_cliente, container, false);
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.editar_cliente_atv);
 
-//        btnEliminar=(ImageView) actionBar.getCustomView().findViewById( R.id.btnEliminar);
+        //        btnEliminar=(ImageView) actionBar.getCustomView().findViewById( R.id.btnEliminar);
 //        tvTitulo=(TextView) actionBar.getCustomView().findViewById(R.id.tvTitulo);
-        etCif = (EditText) vista.findViewById(R.id.etCif);
-        etNombre = (EditText) vista.findViewById(R.id.etNombre);
-        etVia = (EditText) vista.findViewById(R.id.etVia);
-        etDireccion = (EditText) vista.findViewById(R.id.etDireccion);
-        etNumero = (EditText) vista.findViewById(R.id.etNumero);
-        etEscalera = (EditText) vista.findViewById(R.id.etEscalera);
-        etPiso = (EditText) vista.findViewById(R.id.etPiso);
-        etPuerta = (EditText) vista.findViewById(R.id.etPuerta);
-        etCodigoPostal = (EditText) vista.findViewById(R.id.etCodidoPostal);
-        etMunicipio = (EditText) vista.findViewById(R.id.etPoblacion);
-        etProvincia = (EditText) vista.findViewById(R.id.etProvincia);
-        etPais = (EditText) vista.findViewById(R.id.etPais);
-        etTelefono1 = (EditText) vista.findViewById(R.id.etTelefono1);
-        etTelefono2 = (EditText) vista.findViewById(R.id.etTelefono2);
-        etFax = (EditText) vista.findViewById(R.id.etFax);
-        etEmail = (EditText) vista.findViewById(R.id.etEmail);
-        spFormaPago = (Spinner) vista.findViewById(R.id.spFormaPago);
-        etIban = (EditText) vista.findViewById(R.id.etIban);
-        etPago1 = (EditText) vista.findViewById(R.id.etPago1);
-        etPago2 = (EditText) vista.findViewById(R.id.etPago2);
-        etPago3 = (EditText) vista.findViewById(R.id.etPago3);
-        etPago4 = (EditText) vista.findViewById(R.id.etPago4);
-        lyPagos = (LinearLayout) vista.findViewById(R.id.lyPagos);
-        cbImprimirIbanEmpresa = (CheckBox) vista.findViewById(R.id.cbImprimirIbanEmpresa);
-        cbRecargo = (CheckBox) vista.findViewById(R.id.cbRecargo);
-        btnAceptar = (Button) vista.findViewById(R.id.btnAceptar);
+        etCif = (EditText) findViewById(R.id.etCif);
+        etNombre = (EditText) findViewById(R.id.etNombre);
+        etVia = (EditText) findViewById(R.id.etVia);
+        etDireccion = (EditText) findViewById(R.id.etDireccion);
+        etNumero = (EditText) findViewById(R.id.etNumero);
+        etEscalera = (EditText) findViewById(R.id.etEscalera);
+        etPiso = (EditText) findViewById(R.id.etPiso);
+        etPuerta = (EditText) findViewById(R.id.etPuerta);
+        etCodigoPostal = (EditText) findViewById(R.id.etCodidoPostal);
+        etMunicipio = (EditText) findViewById(R.id.etPoblacion);
+        etProvincia = (EditText) findViewById(R.id.etProvincia);
+        etPais = (EditText) findViewById(R.id.etPais);
+        etTelefono1 = (EditText) findViewById(R.id.etTelefono1);
+        etTelefono2 = (EditText) findViewById(R.id.etTelefono2);
+        etFax = (EditText) findViewById(R.id.etFax);
+        etEmail = (EditText) findViewById(R.id.etEmail);
+        spFormaPago = (Spinner) findViewById(R.id.spFormaPago);
+        etIban = (EditText) findViewById(R.id.etIban);
+        etPago1 = (EditText) findViewById(R.id.etPago1);
+        etPago2 = (EditText) findViewById(R.id.etPago2);
+        etPago3 = (EditText) findViewById(R.id.etPago3);
+        etPago4 = (EditText) findViewById(R.id.etPago4);
+        lyPagos = (LinearLayout) findViewById(R.id.lyPagos);
+        cbImprimirIbanEmpresa = (CheckBox) findViewById(R.id.cbImprimirIbanEmpresa);
+        cbRecargo = (CheckBox) findViewById(R.id.cbRecargo);
+        btnAceptar = (Button) findViewById(R.id.btnAceptar);
 
-        BaseDatos dbatos = new BaseDatos(getContext(), "bdPmdm", null, MainActivity.version);
+        BaseDatos dbatos = new BaseDatos(this, "bdPmdm", null, MainActivity.version);
         baseDatos = dbatos.getReadableDatabase();
 
 
         controlComponentes();
-        return vista;
     }
-
     private void controlComponentes() {
 
         btnAceptar.setOnClickListener(new View.OnClickListener() {
@@ -133,45 +119,13 @@ public class NuevoCliente extends Fragment {
 
 
                     baseDatos.insert("clientes", null, registros);
-
-                    getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.lyInicio, new Inicio()).addToBackStack(null).commit();
-
+                    finish();
                 } else {
-                    Toast.makeText(getContext(), "El CIF y el nombre son obligatorios", Toast.LENGTH_LONG).show();
+                    Toast.makeText(getApplicationContext(), "El CIF y el nombre son obligatorios", Toast.LENGTH_LONG).show();
                 }
 
             }
         });
-    }
-
-
-    // TODO: Rename method, update argument and hook method into UI event
-    public void onButtonPressed(Uri uri) {
-        if (mListener != null) {
-            mListener.onFragmentInteraction(uri);
-        }
-    }
-
-    @Override
-    public void onAttach(Context context) {
-        super.onAttach(context);
-        if (context instanceof OnFragmentInteractionListener) {
-            mListener = (OnFragmentInteractionListener) context;
-        } else {
-            throw new RuntimeException(context.toString()
-                    + " must implement OnFragmentInteractionListener");
-        }
-    }
-
-    @Override
-    public void onDetach() {
-        super.onDetach();
-        mListener = null;
-    }
-
-    public interface OnFragmentInteractionListener {
-        // TODO: Update argument type and name
-        void onFragmentInteraction(Uri uri);
     }
 
 

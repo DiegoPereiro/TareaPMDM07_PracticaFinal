@@ -14,12 +14,12 @@ import android.view.Menu;
 import android.view.MenuItem;
 
 import freijo.castro.diego.tareapmdm07_practicafinal.clientes.ClientesFm;
-import freijo.castro.diego.tareapmdm07_practicafinal.clientes.NuevoCliente;
+import freijo.castro.diego.tareapmdm07_practicafinal.clientes.EditarClienteFm;
 import freijo.castro.diego.tareapmdm07_practicafinal.inicio.Inicio;
 import freijo.castro.diego.tareapmdm07_practicafinal.pendientes.Pendientes;
 
 public class Principal extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener,
-        Inicio.OnFragmentInteractionListener, ClientesFm.OnFragmentInteractionListener, NuevoCliente.OnFragmentInteractionListener, Pendientes.OnFragmentInteractionListener {
+        Inicio.OnFragmentInteractionListener, ClientesFm.OnFragmentInteractionListener, EditarClienteFm.OnFragmentInteractionListener, Pendientes.OnFragmentInteractionListener {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

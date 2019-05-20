@@ -7,6 +7,7 @@ import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.TextView;
 
+import java.text.DecimalFormat;
 import java.util.ArrayList;
 
 import freijo.castro.diego.tareapmdm07_practicafinal.R;
@@ -14,6 +15,7 @@ import freijo.castro.diego.tareapmdm07_practicafinal.R;
 public class PartidasAdaptador extends BaseAdapter {
     private Context context;
     private ArrayList<Partida> arrayList;
+    private DecimalFormat decimalFormat=new DecimalFormat("0.00");
 
     public PartidasAdaptador(Context context, ArrayList<Partida> arrayList) {
         this.context = context;
@@ -43,10 +45,13 @@ public class PartidasAdaptador extends BaseAdapter {
             LayoutInflater layoutInflater=(LayoutInflater) context.getSystemService(context.LAYOUT_INFLATER_SERVICE);
             convertView=layoutInflater.inflate(R.layout.partidas_fila, null);
         }
+        TextView tvReferencia=(TextView) convertView.findViewById(R.id.tvReferencia);
+        TextView tvConcepto=(TextView) convertView.findViewById(R.id.tvConcepto);
+        TextView tvPrecio=(TextView) convertView.findViewById(R.id.tvPrecio);
 
-        TextView referencia=(TextView) convertView.findViewById(R.id.tvReferencia);
-        TextView concepto=(TextView) convertView.findViewById(R.id.tvConcepto);
-        TextView precio=(TextView) convertView.findViewById(R.id.tvPrecio);
+        tvReferencia.setText(arrayList.get(position).getReferencia());
+        tvConcepto.setText(arrayList.get(position).getConcepto());
+        tvPrecio.setText(decimalFormat.format(arrayList.get(position).getPrecio()).replace(".",","));
 
         return convertView;
     }

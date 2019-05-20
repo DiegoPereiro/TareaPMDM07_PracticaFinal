@@ -13,7 +13,7 @@ import android.widget.Toast;
 import freijo.castro.diego.tareapmdm07_practicafinal.basedatos.BaseDatos;
 
 public class MainActivity extends AppCompatActivity {
-    public static final int version = 1;
+    public static final int version = 4;
     private SQLiteDatabase baseDatos;
 
     private EditText etUsuario, etcontraseña;

@@ -48,11 +48,10 @@ public class PartidasAtv extends AppCompatActivity {
         btnNuevo.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
-                //getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.lyInicio, new NuevoCliente()).addToBackStack(null).commit();
+                Intent intent=new Intent(PartidasAtv.this, EditarPartidaAtv.class);
+                startActivity(intent);
             }
         });
-
 
         cargarDatos("%");
 
@@ -60,9 +59,9 @@ public class PartidasAtv extends AppCompatActivity {
     private void cargarDatos(String buscar) {
         list.clear();
 
-        Cursor csPartidas = baseDatos.rawQuery("SELECT * FROM clientes where clientes.nombre like '" + buscar + "' ORDER BY nombre", null);
+        Cursor csPartidas = baseDatos.rawQuery("select * from partidas where concepto like '" + buscar + "' ORDER BY concepto", null);
         while (csPartidas.moveToNext()) {
-          partida = new Partida(csPartidas.getString(1),csPartidas.getString(2),csPartidas.getFloat(3),csPartidas.getFloat(4));
+          partida = new Partida(csPartidas.getString(1),csPartidas.getString(2),0,csPartidas.getFloat(3));
 
             list.add(partida);
         }
