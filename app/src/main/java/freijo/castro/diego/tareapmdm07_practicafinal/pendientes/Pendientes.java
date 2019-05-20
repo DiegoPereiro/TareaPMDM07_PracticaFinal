@@ -1,65 +1,48 @@
-package freijo.castro.diego.tareapmdm07_practicafinal.inicio;
+package freijo.castro.diego.tareapmdm07_practicafinal.pendientes;
 
 import android.content.Context;
+import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
+import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
 
 import freijo.castro.diego.tareapmdm07_practicafinal.R;
-import freijo.castro.diego.tareapmdm07_practicafinal.clientes.NuevoCliente;
-import freijo.castro.diego.tareapmdm07_practicafinal.pendientes.Pendientes;
 
-
-public class Inicio extends Fragment {
+public class Pendientes extends Fragment {
     private View vista;
-
-    private Button btnPendientes, btnNuevoCliente, btnListaFacturas, btnNuevaFactura;
-
+    private FloatingActionButton btnNuevoPendiente;
 
     private OnFragmentInteractionListener mListener;
 
-    public Inicio() {
+    public Pendientes() {
         // Required empty public constructor
     }
 
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        vista = inflater.inflate(R.layout.inicio, container, false);
+        // Inflate the layout for this fragment
+        vista = inflater.inflate(R.layout.pendientes, container, false);
 
+        btnNuevoPendiente=(FloatingActionButton) vista.findViewById(R.id.btnNuevoPendiente);
 
-        btnPendientes=(Button) vista.findViewById(R.id.btnPendientes);
-
-
-        controlComponentes();
-        return vista;
-    }
-
-    private void controlComponentes() {
-        btnPendientes.setOnClickListener(new View.OnClickListener() {
+        btnNuevoPendiente.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.lyInicio, new Pendientes()).addToBackStack(null).commit();
-
-
+                Intent intent=new Intent(getContext(), EditarPendiente.class);
+                startActivity(intent);
             }
         });
 
 
-
-
-
-
-
-
-
+        return vista;
     }
 
-
+    // TODO: Rename method, update argument and hook method into UI event
     public void onButtonPressed(Uri uri) {
         if (mListener != null) {
             mListener.onFragmentInteraction(uri);

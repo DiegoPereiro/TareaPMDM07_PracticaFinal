@@ -11,7 +11,8 @@ import android.support.annotation.Nullable;
 public class BaseDatos extends SQLiteOpenHelper {
 
     private String tbusuarios = "CREATE TABLE usuarios (id INTEGER PRIMARY KEY AUTOINCREMENT, usuario TEXT, contraseña TEXT)";
-    private String tbClientes = "CREATE TABLE clientes (id INTEGER PRIMARY KEY AUTOINCREMENT, cif TEXT, nombre TEXT, via TEXT, direccion TEXT, numero TEXT, escalera TEXT, piso TEXT, puerta TEXT, codigopostal TEXT, poblacion TEXT, provincia TEXT, pais TEXT, telefono TEXT, telefono2 TEXT, fax TEXT, email TEXT, iban TEXT, numpagos INTEGER DEFAULT 0, pago1 TEXT, pago2 TEXT, pago3 TEXT, pago4 TEXT, formapago TEXT, reparto TEXT, imprimircuentaempresa INTEGER DEFAULT 0, recargo INTEGER DEFAULT 0,  incrementonini REAL, incrementonormal REAL)";
+    private String tbClientes = "CREATE TABLE clientes (id INTEGER PRIMARY KEY AUTOINCREMENT, cif TEXT, nombre TEXT, via TEXT, direccion TEXT, numero TEXT, escalera TEXT, piso TEXT, puerta TEXT, codigopostal TEXT, poblacion TEXT, provincia TEXT, pais TEXT, telefono TEXT, telefono2 TEXT, fax TEXT, email TEXT, iban TEXT, numpagos INTEGER DEFAULT 0, pago1 TEXT, pago2 TEXT, pago3 TEXT, pago4 TEXT, formapago TEXT, reparto TEXT, imprimircuentaempresa INTEGER DEFAULT 0, recargo INTEGER DEFAULT 0)";
+    private String tbpartidas = "CREATE TABLE partidas (id INTEGER PRIMARY KEY AUTOINCREMENT, referencia TEXT, concepto TEXT, cantidad REAL, precio REAL)";
 
 
     public BaseDatos(Context context, String name, SQLiteDatabase.CursorFactory factory, int version) {
@@ -23,6 +24,8 @@ public class BaseDatos extends SQLiteOpenHelper {
     public void onCreate(SQLiteDatabase db) {
         db.execSQL(tbusuarios);
         db.execSQL(tbClientes);
+        db.execSQL(tbpartidas);
+
 
     }
 
@@ -32,6 +35,8 @@ public class BaseDatos extends SQLiteOpenHelper {
         tabla=tbusuarios;
         try {db.execSQL(tabla);} catch (SQLiteException e) {actualizarCampos(tabla, db);}
         tabla = tbClientes;
+        try {db.execSQL(tabla);} catch (SQLiteException e) {actualizarCampos(tabla, db);}
+        tabla = tbpartidas;
         try {db.execSQL(tabla);} catch (SQLiteException e) {actualizarCampos(tabla, db);}
 
     }

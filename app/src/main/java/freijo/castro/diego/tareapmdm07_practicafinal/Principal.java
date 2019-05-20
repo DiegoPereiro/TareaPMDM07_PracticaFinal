@@ -2,11 +2,8 @@ package freijo.castro.diego.tareapmdm07_practicafinal;
 
 import android.net.Uri;
 import android.os.Bundle;
-import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
 import android.support.v4.app.FragmentManager;
 import android.util.Log;
-import android.view.View;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
@@ -16,11 +13,13 @@ import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 
-import freijo.castro.diego.tareapmdm07_practicafinal.clientes.Clientes;
+import freijo.castro.diego.tareapmdm07_practicafinal.clientes.ClientesFm;
 import freijo.castro.diego.tareapmdm07_practicafinal.clientes.NuevoCliente;
 import freijo.castro.diego.tareapmdm07_practicafinal.inicio.Inicio;
+import freijo.castro.diego.tareapmdm07_practicafinal.pendientes.Pendientes;
 
-public class Principal extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener, Inicio.OnFragmentInteractionListener, Clientes.OnFragmentInteractionListener, NuevoCliente.OnFragmentInteractionListener {
+public class Principal extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener,
+        Inicio.OnFragmentInteractionListener, ClientesFm.OnFragmentInteractionListener, NuevoCliente.OnFragmentInteractionListener, Pendientes.OnFragmentInteractionListener {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -99,7 +98,7 @@ public class Principal extends AppCompatActivity implements NavigationView.OnNav
                 fragmentManager.beginTransaction().replace(R.id.lyInicio, new Inicio()).commit();
                 break;
             case R.id.nav_clientes:
-                fragmentManager.beginTransaction().replace(R.id.lyInicio, new Clientes()).commit();
+                fragmentManager.beginTransaction().replace(R.id.lyInicio, new ClientesFm()).commit();
                 break;
             case R.id.nav_factura:
                 Log.e("factu", "ra");
