@@ -59,7 +59,6 @@ public class ClientesFm extends Fragment {
             }
         });
 
-
         cargarDatos("%");
         return vista;
     }

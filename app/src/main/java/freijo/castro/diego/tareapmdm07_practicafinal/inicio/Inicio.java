@@ -16,7 +16,7 @@ import freijo.castro.diego.tareapmdm07_practicafinal.pendientes.Pendientes;
 public class Inicio extends Fragment {
     private View vista;
 
-    private Button btnPendientes, btnNuevoCliente, btnListaFacturas, btnNuevaFactura;
+    private Button btnPendientes, btnFacturar;
 
 
     private OnFragmentInteractionListener mListener;
@@ -32,6 +32,7 @@ public class Inicio extends Fragment {
 
 
         btnPendientes=(Button) vista.findViewById(R.id.btnPendientes);
+        btnFacturar=(Button) vista.findViewById(R.id.btnFacturar);
 
 
         controlComponentes();
@@ -43,7 +44,11 @@ public class Inicio extends Fragment {
             @Override
             public void onClick(View v) {
                 getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.lyInicio, new Pendientes()).addToBackStack(null).commit();
-
+            }
+        });
+        btnFacturar.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
 
             }
         });

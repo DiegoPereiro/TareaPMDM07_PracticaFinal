@@ -23,12 +23,12 @@
             android:text="Pendientes" />
 
         <Button
-            android:id="@+id/btnNuevaFactura"
+            android:id="@+id/btnFacturar"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:drawableTop="@drawable/nuevo_documento48"
-            android:text="Nueva factura" />
+            android:text="Facturar" />
 
     </LinearLayout>
 
