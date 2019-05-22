@@ -84,8 +84,10 @@ public class FacturasFm extends Fragment {
         lvFacturas.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-
-                //codigo para modificar
+                Factura seleccion = (Factura) adapter.getItem(position);
+                Intent intent=new Intent(getContext(), EditarFacturaAtv.class);
+                intent.putExtra("id", seleccion.getId());
+                startActivity(intent);
 
             }
         });

@@ -132,7 +132,8 @@ public class Facturar extends AsyncTask<Void, Integer, Boolean> {
     protected void onPostExecute(Boolean resultado) {
         super.onPostExecute(resultado);
         if (resultado){
-//            baseDatos.execSQL("delete from pendientes");
+            //eliminar las partidas pendientes
+            baseDatos.execSQL("delete from pendientes");
             Toast.makeText(context, "Facturación correcta", Toast.LENGTH_SHORT).show();
         }
         progreso.dismiss();
