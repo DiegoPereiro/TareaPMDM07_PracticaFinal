@@ -1,4 +1,4 @@
-package freijo.castro.diego.tareapmdm07_practicafinal.pendientes;
+package freijo.castro.diego.tareapmdm07_practicafinal.partidas;
 
 import android.content.Context;
 import android.content.Intent;
@@ -12,6 +12,8 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
+import android.widget.EditText;
 import android.widget.ListView;
 
 import java.util.ArrayList;
@@ -19,73 +21,75 @@ import java.util.ArrayList;
 import freijo.castro.diego.tareapmdm07_practicafinal.MainActivity;
 import freijo.castro.diego.tareapmdm07_practicafinal.R;
 import freijo.castro.diego.tareapmdm07_practicafinal.basedatos.BaseDatos;
-import freijo.castro.diego.tareapmdm07_practicafinal.clientes.Cliente;
-import freijo.castro.diego.tareapmdm07_practicafinal.clientes.ClientesAdaptador;
 
-public class Pendientes extends Fragment {
+
+public class PartidasFm extends Fragment {
     private View vista;
-    private FloatingActionButton btnNuevoPendiente;
-    private ListView lvPendientes;
+    private EditText etBuscar;
+    private ListView lvPartidas;
+    private FloatingActionButton btnNuevo;
 
     private SQLiteDatabase baseDatos;
 
-    private Pendiente pendiente;
-    private ArrayList<Pendiente> list=new ArrayList<>();
-    private PendientesAdaptador adapter;
+    private Partida partida;
+    private ArrayList<Partida> list = new ArrayList<>();
+    private PartidasAdaptador adapter;
+
 
     private OnFragmentInteractionListener mListener;
 
-
-
-    public Pendientes() {
+    public PartidasFm() {
         // Required empty public constructor
     }
 
-
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
-        vista = inflater.inflate(R.layout.pendientes, container, false);
+        vista= inflater.inflate(R.layout.partidas_fm, container, false);
 
-        lvPendientes=(ListView) vista.findViewById(R.id.lvPendientes);
-
-        btnNuevoPendiente=(FloatingActionButton) vista.findViewById(R.id.btnNuevoPendiente);
+        etBuscar = (EditText) vista.findViewById(R.id.etBuscar);
+        lvPartidas = (ListView) vista.findViewById(R.id.lvPartidas);
+        btnNuevo = (FloatingActionButton) vista.findViewById(R.id.btnNuevaPartida);
 
         BaseDatos dbatos = new BaseDatos(getContext(), "bdPmdm", null, MainActivity.version);
         baseDatos = dbatos.getReadableDatabase();
 
-        btnNuevoPendiente.setOnClickListener(new View.OnClickListener() {
+        btnNuevo.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent=new Intent(getContext(), EditarPendiente.class);
+                Intent intent=new Intent(getContext(), EditarPartidaAtv.class);
                 startActivity(intent);
             }
         });
+
         return vista;
     }
 
     @Override
     public void onResume() {
         super.onResume();
-        cargarDatos();
+        cargarDatos("%");
     }
-
-    private void cargarDatos() {
+    private void cargarDatos(String buscar) {
         list.clear();
 
-        Cursor csPendientes=baseDatos.rawQuery("select pendientes.id, clientes.id, pendientes.fecha, clientes.cif, clientes.nombre, pendientes.referencia," +
-                " pendientes.concepto, pendientes.cantidad, pendientes.precio from pendientes, clientes where pendientes.idcliente=clientes.id order by pendientes.fecha", null);
-        while (csPendientes.moveToNext()){
-            pendiente=new Pendiente(csPendientes.getInt(0), csPendientes.getInt(1), csPendientes.getString(2), csPendientes.getString(3),
-                    csPendientes.getString(4), csPendientes.getString(5),  csPendientes.getString(6), csPendientes.getFloat(7),  csPendientes.getFloat(8));
+        Cursor csPartidas = baseDatos.rawQuery("select * from partidas where concepto like '" + buscar + "' ORDER BY concepto", null);
+        while (csPartidas.moveToNext()) {
+            partida = new Partida(csPartidas.getString(1),csPartidas.getString(2),0,csPartidas.getFloat(3));
 
-            list.add(pendiente);
+            list.add(partida);
         }
-        adapter=new PendientesAdaptador(getContext(), list);
-        lvPendientes.setAdapter(adapter);
+        adapter = new PartidasAdaptador(getContext(), list);
 
+        lvPartidas.setAdapter(adapter);
+        lvPartidas.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+
+                //codigo para modificar
+
+            }
+        });
     }
-
 
     // TODO: Rename method, update argument and hook method into UI event
     public void onButtonPressed(Uri uri) {

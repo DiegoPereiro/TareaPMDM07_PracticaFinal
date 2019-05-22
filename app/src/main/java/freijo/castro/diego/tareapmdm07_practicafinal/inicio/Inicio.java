@@ -1,6 +1,9 @@
 package freijo.castro.diego.tareapmdm07_practicafinal.inicio;
 
+import android.app.AlertDialog;
 import android.content.Context;
+import android.content.DialogInterface;
+import android.database.Cursor;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -10,6 +13,7 @@ import android.view.ViewGroup;
 import android.widget.Button;
 
 import freijo.castro.diego.tareapmdm07_practicafinal.R;
+import freijo.castro.diego.tareapmdm07_practicafinal.facturas.Facturar;
 import freijo.castro.diego.tareapmdm07_practicafinal.pendientes.Pendientes;
 
 
@@ -49,6 +53,23 @@ public class Inicio extends Fragment {
         btnFacturar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                AlertDialog.Builder alerta = new AlertDialog.Builder(getContext());
+                alerta.setMessage("¿Seguro que desea facturar la partidas pendientes?").setCancelable(false)
+                        .setPositiveButton("Si", new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+                                new Facturar(getContext()).execute();
+                                dialog.cancel();
+                            }
+                        })
+                        .setNegativeButton("No", new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+                                dialog.cancel();
+                            }
+                        });
+                alerta.setTitle("Aviso");
+                alerta.show();
 
             }
         });

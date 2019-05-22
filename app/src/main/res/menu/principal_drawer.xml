@@ -14,9 +14,9 @@
             android:title="Clientes"/>
 
         <item
-            android:id="@+id/nav_productos"
+            android:id="@+id/nav_partidas"
             android:icon="@drawable/ic_maletin"
-            android:title="Productos"/>
+            android:title="Partidas"/>
 
         <item
             android:id="@+id/nav_factura"

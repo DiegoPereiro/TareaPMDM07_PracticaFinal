@@ -16,10 +16,12 @@ import android.view.MenuItem;
 import freijo.castro.diego.tareapmdm07_practicafinal.clientes.ClientesFm;
 import freijo.castro.diego.tareapmdm07_practicafinal.clientes.EditarClienteFm;
 import freijo.castro.diego.tareapmdm07_practicafinal.inicio.Inicio;
+import freijo.castro.diego.tareapmdm07_practicafinal.partidas.PartidasFm;
 import freijo.castro.diego.tareapmdm07_practicafinal.pendientes.Pendientes;
 
 public class Principal extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener,
-        Inicio.OnFragmentInteractionListener, ClientesFm.OnFragmentInteractionListener, EditarClienteFm.OnFragmentInteractionListener, Pendientes.OnFragmentInteractionListener {
+        Inicio.OnFragmentInteractionListener, ClientesFm.OnFragmentInteractionListener, EditarClienteFm.OnFragmentInteractionListener, Pendientes.OnFragmentInteractionListener,
+        PartidasFm.OnFragmentInteractionListener {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -99,6 +101,9 @@ public class Principal extends AppCompatActivity implements NavigationView.OnNav
                 break;
             case R.id.nav_clientes:
                 fragmentManager.beginTransaction().replace(R.id.lyInicio, new ClientesFm()).commit();
+                break;
+            case R.id.nav_partidas:
+                fragmentManager.beginTransaction().replace(R.id.lyInicio, new PartidasFm()).commit();
                 break;
             case R.id.nav_factura:
                 Log.e("factu", "ra");

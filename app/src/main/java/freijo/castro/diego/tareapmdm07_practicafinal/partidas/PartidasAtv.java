@@ -53,9 +53,14 @@ public class PartidasAtv extends AppCompatActivity {
             }
         });
 
-        cargarDatos("%");
-
     }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        cargarDatos("%");
+    }
+
     private void cargarDatos(String buscar) {
         list.clear();
 
