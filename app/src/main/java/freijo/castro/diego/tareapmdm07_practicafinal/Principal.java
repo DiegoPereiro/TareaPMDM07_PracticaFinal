@@ -3,7 +3,6 @@ package freijo.castro.diego.tareapmdm07_practicafinal;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.FragmentManager;
-import android.util.Log;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
@@ -15,13 +14,15 @@ import android.view.MenuItem;
 
 import freijo.castro.diego.tareapmdm07_practicafinal.clientes.ClientesFm;
 import freijo.castro.diego.tareapmdm07_practicafinal.clientes.EditarClienteFm;
+import freijo.castro.diego.tareapmdm07_practicafinal.facturas.FacturasAdaptador;
+import freijo.castro.diego.tareapmdm07_practicafinal.facturas.FacturasFm;
 import freijo.castro.diego.tareapmdm07_practicafinal.inicio.Inicio;
 import freijo.castro.diego.tareapmdm07_practicafinal.partidas.PartidasFm;
 import freijo.castro.diego.tareapmdm07_practicafinal.pendientes.Pendientes;
 
 public class Principal extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener,
-        Inicio.OnFragmentInteractionListener, ClientesFm.OnFragmentInteractionListener, EditarClienteFm.OnFragmentInteractionListener, Pendientes.OnFragmentInteractionListener,
-        PartidasFm.OnFragmentInteractionListener {
+        Inicio.OnFragmentInteractionListener, ClientesFm.OnFragmentInteractionListener, Pendientes.OnFragmentInteractionListener,
+        PartidasFm.OnFragmentInteractionListener, FacturasFm.OnFragmentInteractionListener {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -106,8 +107,7 @@ public class Principal extends AppCompatActivity implements NavigationView.OnNav
                 fragmentManager.beginTransaction().replace(R.id.lyInicio, new PartidasFm()).commit();
                 break;
             case R.id.nav_factura:
-                Log.e("factu", "ra");
-
+                fragmentManager.beginTransaction().replace(R.id.lyInicio, new FacturasFm()).commit();
                 break;
         }
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);

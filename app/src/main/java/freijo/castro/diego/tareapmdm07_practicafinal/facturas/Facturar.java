@@ -43,6 +43,7 @@ public class Facturar extends AsyncTask<Void, Integer, Boolean> {
         int progreso, numero, idFactura;
         String fecha;
         boolean resultado = false;
+        float tipoIva=21;
 
 
         try {
@@ -51,7 +52,7 @@ public class Facturar extends AsyncTask<Void, Integer, Boolean> {
                 do {
                     Thread.sleep(50);
                     publishProgress(10);
-                    progreso=80/csClientesFacturas.getCount();
+                    progreso=70/csClientesFacturas.getCount();
 
 
                     int idCliente = csClientesFacturas.getInt(0);
@@ -72,7 +73,7 @@ public class Facturar extends AsyncTask<Void, Integer, Boolean> {
                     idFactura = csIdFactura.getInt(0);
 
                     //consultas todas las partidas pendientes por cliente
-                    Cursor csPartidasPendientes = baseDatos.rawQuery("select * from pendientes where idcliente=" + idFactura, null);
+                    Cursor csPartidasPendientes = baseDatos.rawQuery("select * from pendientes where idcliente=" + idCliente, null);
                     while (csPartidasPendientes.moveToNext()) {
                         ContentValues registros = new ContentValues();
                         registros.put("idfactura", idFactura);
@@ -80,17 +81,29 @@ public class Facturar extends AsyncTask<Void, Integer, Boolean> {
                         registros.put("concepto", csPartidasPendientes.getString(4));
                         registros.put("cantidad", csPartidasPendientes.getFloat(5));
                         registros.put("precio", csPartidasPendientes.getFloat(6));
-                        registros.put("tipoiva", 21);
+                        registros.put("tipoiva", tipoIva);
+
                         baseDatos.insert("facturaspartidas", null, registros);
                     }
+
+                    Cursor csTotales=baseDatos.rawQuery("select sum(cantidad*precio) total from facturaspartidas  where idfactura=1", null);
+                    if (csTotales.moveToFirst()){
+                        float base =csTotales.getFloat(0);
+                        float total=(base*tipoIva)+base;
+
+
+                        ContentValues registros = new ContentValues();
+                        registros.put("base", base );
+                        registros.put("iva", tipoIva);
+                        registros.put("total", total);
+                        baseDatos.update("facturas", registros, "id=" + idFactura, null);
+                    }
+
                     Thread.sleep(50);
                     publishProgress(progreso);
                     progreso=progreso+progreso;
-                    
-                    
-                    
-                    
-                    
+
+
                 }while (csClientesFacturas.moveToNext());
                 resultado=true;                
             }
@@ -119,7 +132,7 @@ public class Facturar extends AsyncTask<Void, Integer, Boolean> {
     protected void onPostExecute(Boolean resultado) {
         super.onPostExecute(resultado);
         if (resultado){
-            baseDatos.execSQL("delete from pendientes");
+//            baseDatos.execSQL("delete from pendientes");
             Toast.makeText(context, "Facturación correcta", Toast.LENGTH_SHORT).show();
         }
         progreso.dismiss();
