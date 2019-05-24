@@ -5,6 +5,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import java.text.SimpleDateFormat;
@@ -46,9 +47,20 @@ public class RecordatoriosAdaptador extends BaseAdapter {
 
         TextView tvFechaHora = (TextView) convertView.findViewById(R.id.tvFechaHora);
         TextView tvNotificacion = (TextView) convertView.findViewById(R.id.tvNotificacion);
+        ImageView ivRecordatorio=(ImageView) convertView.findViewById(R.id.ivRecordatorio);
+
 
         tvFechaHora.setText(new SimpleDateFormat("dd/MM/yyyy").format( arrayList.get(position).getFecha()));
         tvNotificacion.setText(arrayList.get(position).getNotificacion());
+        switch (arrayList.get(position).getDestino()){
+            case "recordatorio":
+                ivRecordatorio.setImageResource(R.drawable.alarmd);
+                break;
+            case "destino":
+
+                ivRecordatorio.setImageResource(R.drawable.cronometro48);
+                break;
+        }
 
         return convertView;
     }

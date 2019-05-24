@@ -13,7 +13,7 @@ import android.widget.Toast;
 import freijo.castro.diego.tareapmdm07_practicafinal.basedatos.BaseDatos;
 
 public class MainActivity extends AppCompatActivity {
-    public static final int version = 5;
+    public static final int version = 1;
     private SQLiteDatabase baseDatos;
 
     private EditText etUsuario, etcontraseña;
@@ -39,23 +39,22 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void iniciarSesion(View view) {
-        String usuario=etUsuario.getText().toString();
-        String constraseña=etcontraseña.getText().toString();
+        String usuario = etUsuario.getText().toString();
+        String constraseña = etcontraseña.getText().toString();
 
 
         if (!usuario.equals("") && !constraseña.equals("")) {
-            Cursor csUsuario=baseDatos.rawQuery("select * from usuarios where usuario='"+usuario+"' and contraseña='"+constraseña+"'", null);
-            if (csUsuario.moveToFirst()){
+            Cursor csUsuario = baseDatos.rawQuery("select * from usuarios where usuario='" + usuario + "' and contraseña='" + constraseña + "'", null);
+            if (csUsuario.moveToFirst()) {
                 Intent intent = new Intent(this, Principal.class);
                 startActivity(intent);
                 finish();
-            }else {
+            } else {
                 Toast.makeText(this, "Credenciales incorrectas", Toast.LENGTH_SHORT).show();
             }
-        }else {
+        } else {
             Toast.makeText(this, "Debe poner el usuario y la contraseña", Toast.LENGTH_SHORT).show();
         }
-
 
 
     }

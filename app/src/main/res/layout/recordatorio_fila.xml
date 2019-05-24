@@ -8,10 +8,10 @@
 
     <ImageView
         android:id="@+id/ivRecordatorio"
-        android:layout_width="wrap_content"
+        android:layout_width="43dp"
         android:layout_height="match_parent"
         android:layout_weight="1"
-        app:srcCompat="@drawable/cronometro48" />
+        app:srcCompat="@drawable/alarmd" />
 
     <LinearLayout
         android:layout_width="match_parent"

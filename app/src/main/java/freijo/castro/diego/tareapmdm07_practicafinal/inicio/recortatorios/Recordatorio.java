@@ -10,13 +10,15 @@ public class Recordatorio {
     private Date fecha, hora;
     private String notificacion, destino;
     private Boolean alarma;
+    private int id;
 
-    public Recordatorio(Date fecha, Date hora, String notificacion, String destino, Boolean alarma) {
+    public Recordatorio(Date fecha, Date hora, String notificacion, String destino, Boolean alarma, int id) {
         this.fecha = fecha;
         this.hora = hora;
         this.notificacion = notificacion;
         this.destino = destino;
         this.alarma = alarma;
+        this.id=id;
     }
 
     public Date getFecha() {
@@ -57,5 +59,13 @@ public class Recordatorio {
 
     public void setAlarma(Boolean alarma) {
         this.alarma = alarma;
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
     }
 }

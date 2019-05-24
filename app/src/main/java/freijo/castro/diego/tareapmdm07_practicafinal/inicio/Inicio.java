@@ -4,10 +4,13 @@ import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.database.Cursor;
+import android.database.sqlite.SQLiteDatabase;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.Fragment;
+import android.text.BoringLayout;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -21,11 +24,14 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 
+import freijo.castro.diego.tareapmdm07_practicafinal.MainActivity;
 import freijo.castro.diego.tareapmdm07_practicafinal.R;
+import freijo.castro.diego.tareapmdm07_practicafinal.basedatos.BaseDatos;
 import freijo.castro.diego.tareapmdm07_practicafinal.facturas.Facturar;
 import freijo.castro.diego.tareapmdm07_practicafinal.inicio.recortatorios.EditarRecordatorioAtv;
 import freijo.castro.diego.tareapmdm07_practicafinal.inicio.recortatorios.Recordatorio;
 import freijo.castro.diego.tareapmdm07_practicafinal.inicio.recortatorios.RecordatoriosAdaptador;
+import freijo.castro.diego.tareapmdm07_practicafinal.pendientes.Pendiente;
 import freijo.castro.diego.tareapmdm07_practicafinal.pendientes.Pendientes;
 
 
@@ -40,6 +46,8 @@ public class Inicio extends Fragment {
     private TextView tvFecha;
     private ListView lvRecordatorios;
     private FloatingActionButton btnNuevoRecordatorio;
+
+    private SQLiteDatabase baseDatos;
 
 
     private OnFragmentInteractionListener mListener;
@@ -59,6 +67,9 @@ public class Inicio extends Fragment {
         tvFecha=(TextView) vista.findViewById(R.id.tvFecha);
         lvRecordatorios=(ListView) vista.findViewById(R.id.lvReecordatorios);
         btnNuevoRecordatorio=(FloatingActionButton) vista.findViewById(R.id.btnNuevoRecordatorio);
+
+        BaseDatos dbatos = new BaseDatos(getContext(), "bdPmdm", null, MainActivity.version);
+        baseDatos = dbatos.getReadableDatabase();
 
 
         controlComponentes();
@@ -96,7 +107,6 @@ public class Inicio extends Fragment {
             }
         });
         tvFecha.setText(formatoFecha.format(hoy));
-        cargarRecordatorios();
         btnNuevoRecordatorio.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -106,12 +116,19 @@ public class Inicio extends Fragment {
         });
     }
 
+    @Override
+    public void onResume() {
+        super.onResume();
+        cargarRecordatorios();
+    }
+
     private void cargarRecordatorios() {
         ArrayList<Recordatorio> list=new ArrayList<>();
         Recordatorio recordatorio;
         RecordatoriosAdaptador adaptador;
 
         Date fecha = null, hora = null;
+        Boolean alarma = null;
 
         list.clear();
         try {
@@ -122,13 +139,29 @@ public class Inicio extends Fragment {
         }
 
 
-        recordatorio=new Recordatorio(fecha, hora, "prueva de notificacion", "destino", true);
-        list.add(recordatorio);
-        list.add(recordatorio);
-        list.add(recordatorio);
-        list.add(recordatorio);
+        recordatorio=new Recordatorio(fecha, hora, "prueva de notificacion", "destino", true,0);
         list.add(recordatorio);
 
+        //recordatorios creados
+         Cursor csRecordatorios=baseDatos.rawQuery("select * from recordatorios where recordatorios.fecha<='28/05/2019' order by recordatorios.fecha, recordatorios.hora", null);
+
+
+
+        while (csRecordatorios.moveToNext()){
+            fecha = null;
+            hora = null;
+            alarma = null;
+
+            try {
+                fecha=formatoFecha.parse(csRecordatorios.getString(1));
+                hora=formatoHora.parse(csRecordatorios.getString(2));
+                alarma= Boolean.parseBoolean(csRecordatorios.getString(4));
+            } catch (ParseException e) {
+                e.printStackTrace();
+            }
+            recordatorio=new Recordatorio(fecha, hora, csRecordatorios.getString(3), "recordatorio", alarma, csRecordatorios.getInt(0));
+            list.add(recordatorio);
+        }
 
 
 
@@ -141,18 +174,6 @@ public class Inicio extends Fragment {
         lvRecordatorios.setAdapter(adaptador);
 
 
-
-
-//        Cursor csPendientes=baseDatos.rawQuery("select pendientes.id, clientes.id, pendientes.fecha, clientes.cif, clientes.nombre, pendientes.referencia," +
-//                " pendientes.concepto, pendientes.cantidad, pendientes.precio from pendientes, clientes where pendientes.idcliente=clientes.id order by pendientes.fecha", null);
-//        while (csPendientes.moveToNext()){
-//            pendiente=new Pendiente(csPendientes.getInt(0), csPendientes.getInt(1), csPendientes.getString(2), csPendientes.getString(3),
-//                    csPendientes.getString(4), csPendientes.getString(5),  csPendientes.getString(6), csPendientes.getFloat(7),  csPendientes.getFloat(8));
-//
-//            list.add(pendiente);
-//        }
-//        adapter=new PendientesAdaptador(getContext(), list);
-//        lvPendientes.setAdapter(adapter);
 
 
 

@@ -179,7 +179,6 @@ public class EditarPendiente extends AppCompatActivity {
 
             if (id==0){
                 baseDatos.insert("pendientes", null, registros);
-                Log.e("sdf", "guardado");
             }else {
 
             }
