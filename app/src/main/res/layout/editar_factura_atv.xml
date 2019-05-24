@@ -27,7 +27,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:background="@color/rojo_app"
-                android:paddingLeft="5sp"
+                android:padding="2dp"
                 android:text="Fecha"
                 android:textColor="@android:color/background_light"
                 android:textSize="10sp" />
@@ -73,7 +73,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:background="@color/rojo_app"
-                android:paddingLeft="5sp"
+                android:padding="2dp"
                 android:text="Numero"
                 android:textColor="@android:color/background_light"
                 android:textSize="10sp" />
@@ -109,7 +109,7 @@
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:background="@color/rojo_app"
-            android:paddingLeft="2dp"
+            android:padding="2dp"
             android:text="Cliente"
             android:textColor="@android:color/background_light"
             android:textSize="10sp" />
@@ -208,7 +208,7 @@
             android:layout_height="wrap_content"
             android:layout_weight="0"
             android:background="@color/rojo_app"
-            android:paddingLeft="2dp"
+            android:padding="2dp"
             android:text="Partidas"
             android:textColor="@android:color/background_light"
             android:textSize="10sp" />
@@ -304,16 +304,20 @@
 
             <TextView
                 android:id="@+id/textView14"
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:background="@color/rojo_app"
+                android:gravity="right"
+                android:padding="2dp"
                 android:text="Base Imp."
+                android:textColor="@android:color/background_light"
                 android:textSize="10dp" />
 
             <TextView
                 android:id="@+id/tvBaseImponible"
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="10dp"
+                android:gravity="right"
                 android:text="0,00"
                 android:textColor="@android:color/black" />
         </LinearLayout>
@@ -327,16 +331,21 @@
 
             <TextView
                 android:id="@+id/textView15"
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_marginLeft="2dp"
+                android:background="@color/rojo_app"
+                android:gravity="right"
+                android:padding="2dp"
                 android:text="Cuota IVA"
+                android:textColor="@android:color/background_light"
                 android:textSize="10dp" />
 
             <TextView
                 android:id="@+id/tvCuotaIva"
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="10dp"
+                android:gravity="right"
                 android:text="0,00"
                 android:textColor="@android:color/black" />
         </LinearLayout>
@@ -350,16 +359,21 @@
 
             <TextView
                 android:id="@+id/textView16"
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_marginLeft="2dp"
+                android:background="@color/rojo_app"
+                android:gravity="right"
+                android:padding="2dp"
                 android:text="Total"
+                android:textColor="@android:color/background_light"
                 android:textSize="10dp" />
 
             <TextView
                 android:id="@+id/tvTotalFactura"
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="10dp"
+                android:gravity="right"
                 android:text="0,00"
                 android:textColor="@android:color/black" />
         </LinearLayout>

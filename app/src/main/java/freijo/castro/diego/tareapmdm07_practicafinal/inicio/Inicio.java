@@ -3,24 +3,43 @@ package freijo.castro.diego.tareapmdm07_practicafinal.inicio;
 import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
-import android.database.Cursor;
+import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
+import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.LinearLayout;
+import android.widget.ListView;
+import android.widget.TextView;
+
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.Date;
 
 import freijo.castro.diego.tareapmdm07_practicafinal.R;
 import freijo.castro.diego.tareapmdm07_practicafinal.facturas.Facturar;
+import freijo.castro.diego.tareapmdm07_practicafinal.inicio.recortatorios.EditarRecordatorioAtv;
+import freijo.castro.diego.tareapmdm07_practicafinal.inicio.recortatorios.Recordatorio;
+import freijo.castro.diego.tareapmdm07_practicafinal.inicio.recortatorios.RecordatoriosAdaptador;
 import freijo.castro.diego.tareapmdm07_practicafinal.pendientes.Pendientes;
 
 
 public class Inicio extends Fragment {
     private View vista;
+    private Date hoy = new Date();
+    private SimpleDateFormat formatoFecha = new SimpleDateFormat("dd/MM/yyyy");
+    private SimpleDateFormat formatoHora = new SimpleDateFormat("HH:MM");
+
 
     private Button btnPendientes, btnFacturar;
+    private TextView tvFecha;
+    private ListView lvRecordatorios;
+    private FloatingActionButton btnNuevoRecordatorio;
 
 
     private OnFragmentInteractionListener mListener;
@@ -37,6 +56,9 @@ public class Inicio extends Fragment {
 
         btnPendientes=(Button) vista.findViewById(R.id.btnPendientes);
         btnFacturar=(Button) vista.findViewById(R.id.btnFacturar);
+        tvFecha=(TextView) vista.findViewById(R.id.tvFecha);
+        lvRecordatorios=(ListView) vista.findViewById(R.id.lvReecordatorios);
+        btnNuevoRecordatorio=(FloatingActionButton) vista.findViewById(R.id.btnNuevoRecordatorio);
 
 
         controlComponentes();
@@ -73,9 +95,64 @@ public class Inicio extends Fragment {
 
             }
         });
+        tvFecha.setText(formatoFecha.format(hoy));
+        cargarRecordatorios();
+        btnNuevoRecordatorio.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent=new Intent(getContext(), EditarRecordatorioAtv.class);
+                startActivity(intent);
+            }
+        });
+    }
+
+    private void cargarRecordatorios() {
+        ArrayList<Recordatorio> list=new ArrayList<>();
+        Recordatorio recordatorio;
+        RecordatoriosAdaptador adaptador;
+
+        Date fecha = null, hora = null;
+
+        list.clear();
+        try {
+            fecha=formatoFecha.parse("25/06/2019");
+            hora=formatoHora.parse("12:00");
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+
+
+        recordatorio=new Recordatorio(fecha, hora, "prueva de notificacion", "destino", true);
+        list.add(recordatorio);
+        list.add(recordatorio);
+        list.add(recordatorio);
+        list.add(recordatorio);
+        list.add(recordatorio);
 
 
 
+
+
+
+
+
+
+        adaptador=new RecordatoriosAdaptador(getContext(), list);
+        lvRecordatorios.setAdapter(adaptador);
+
+
+
+
+//        Cursor csPendientes=baseDatos.rawQuery("select pendientes.id, clientes.id, pendientes.fecha, clientes.cif, clientes.nombre, pendientes.referencia," +
+//                " pendientes.concepto, pendientes.cantidad, pendientes.precio from pendientes, clientes where pendientes.idcliente=clientes.id order by pendientes.fecha", null);
+//        while (csPendientes.moveToNext()){
+//            pendiente=new Pendiente(csPendientes.getInt(0), csPendientes.getInt(1), csPendientes.getString(2), csPendientes.getString(3),
+//                    csPendientes.getString(4), csPendientes.getString(5),  csPendientes.getString(6), csPendientes.getFloat(7),  csPendientes.getFloat(8));
+//
+//            list.add(pendiente);
+//        }
+//        adapter=new PendientesAdaptador(getContext(), list);
+//        lvPendientes.setAdapter(adapter);
 
 
 

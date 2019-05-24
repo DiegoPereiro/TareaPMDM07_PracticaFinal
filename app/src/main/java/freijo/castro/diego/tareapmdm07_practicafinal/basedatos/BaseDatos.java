@@ -16,6 +16,7 @@ public class BaseDatos extends SQLiteOpenHelper {
     private String tbFacturas="CREATE TABLE facturas (id INTEGER PRIMARY KEY AUTOINCREMENT, numero INTEGER, fecha DATE, idcliente TEXT, base REAL, iva REAL, total REAL)";
     private String tbFacturasPartidas="CREATE TABLE facturaspartidas (id INTEGER PRIMARY KEY AUTOINCREMENT, idfactura INTEGER, referencia TEXT, concepto TEXT, cantidad REAL, precio REAL, tipoiva REAL)";
     private String tbPendientes="CREATE TABLE pendientes (id INTEGER PRIMARY KEY AUTOINCREMENT, fecha DATE, idcliente INTEGER, referencia TEXT, concepto TEXT, cantidad REAL, precio REAL)";
+    private String tbRecordatorios="CREATE TABLE recordatorios (id INTEGER PRIMARY KEY AUTOINCREMENT, fecha DATE, hora Date, notificacion TEXT, destino TEXT, alarma INTEGER DEFAULT 0)";
 
     public BaseDatos(Context context, String name, SQLiteDatabase.CursorFactory factory, int version) {
         super(context, name, factory, version);
@@ -30,7 +31,7 @@ public class BaseDatos extends SQLiteOpenHelper {
         db.execSQL(tbFacturas);
         db.execSQL(tbFacturasPartidas);
         db.execSQL(tbPendientes);
-
+        db.execSQL(tbRecordatorios);
 
     }
 
@@ -49,7 +50,8 @@ public class BaseDatos extends SQLiteOpenHelper {
         try {db.execSQL(tabla);} catch (SQLiteException e) {actualizarCampos(tabla, db);}
         tabla = tbPendientes;
         try {db.execSQL(tabla);} catch (SQLiteException e) {actualizarCampos(tabla, db);}
-
+        tabla = tbRecordatorios;
+        try {db.execSQL(tabla);} catch (SQLiteException e) {actualizarCampos(tabla, db);}
     }
 
     private void actualizarCampos(String tabla, SQLiteDatabase db) {

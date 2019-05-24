@@ -55,7 +55,7 @@ public class FacturasFm extends Fragment {
         btnNuevo.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent=new Intent(getContext(), EditarPartidaAtv.class);
+                Intent intent=new Intent(getContext(), EditarFacturaAtv.class);
                 startActivity(intent);
             }
         });
