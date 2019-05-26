@@ -13,8 +13,6 @@ import android.view.Menu;
 import android.view.MenuItem;
 
 import freijo.castro.diego.tareapmdm07_practicafinal.clientes.ClientesFm;
-import freijo.castro.diego.tareapmdm07_practicafinal.clientes.EditarClienteFm;
-import freijo.castro.diego.tareapmdm07_practicafinal.facturas.FacturasAdaptador;
 import freijo.castro.diego.tareapmdm07_practicafinal.facturas.FacturasFm;
 import freijo.castro.diego.tareapmdm07_practicafinal.inicio.Inicio;
 import freijo.castro.diego.tareapmdm07_practicafinal.partidas.PartidasFm;
@@ -24,6 +22,10 @@ public class Principal extends AppCompatActivity implements NavigationView.OnNav
         Inicio.OnFragmentInteractionListener, ClientesFm.OnFragmentInteractionListener, Pendientes.OnFragmentInteractionListener,
         PartidasFm.OnFragmentInteractionListener, FacturasFm.OnFragmentInteractionListener {
 
+//    private NotificationManager notificationManager;
+//    private static final int IDNOTIFICACION=0;
+//    private static final String IDCANALNOTIFICACION="primeranotificacion";
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -31,7 +33,9 @@ public class Principal extends AppCompatActivity implements NavigationView.OnNav
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
-
+//        notificationManager=(NotificationManager) getSystemService(NOTIFICATION_SERVICE);
+//        crearCanalNotificacion();
+//        lanzarNotificacion(this);
 
 
 
@@ -120,4 +124,35 @@ public class Principal extends AppCompatActivity implements NavigationView.OnNav
     public void onFragmentInteraction(Uri uri) {
 
     }
+
+
+
+//    public void crearCanalNotificacion(){
+//        notificationManager=(NotificationManager) getSystemService(NOTIFICATION_SERVICE);
+//        if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.O) {
+//            NotificationChannel notificationChannel=new NotificationChannel(IDCANALNOTIFICACION, "PRUEVA DE NOTIFICACION", NotificationManager.IMPORTANCE_HIGH);
+//            notificationChannel.enableLights(true);
+//            notificationChannel.setLightColor(Color.RED);
+//            notificationChannel.enableVibration(true);
+//            notificationChannel.setDescription("desctripcion de la notificacion");
+//            notificationManager.createNotificationChannel(notificationChannel);
+//        }
+//    }
+//    private void lanzarNotificacion(Context context){
+//        Intent intent=new Intent(context, Principal.class);
+//        PendingIntent pendingIntent= (PendingIntent) PendingIntent.getActivity(context, IDNOTIFICACION, intent, PendingIntent.FLAG_UPDATE_CURRENT);
+//
+//        NotificationCompat.Builder builder=new NotificationCompat.Builder(context, IDCANALNOTIFICACION);
+//        builder.setSmallIcon(R.drawable.ic_documento);
+//        builder.setContentTitle("Hacer facturación");
+//        builder.setContentText("esta pendiente de hace la facturacion del mes");
+//        builder.setContentIntent(pendingIntent);
+//        builder.setPriority(NotificationCompat.PRIORITY_HIGH);
+//        builder.setAutoCancel(true);
+//        builder.setDefaults(NotificationCompat.DEFAULT_ALL);
+//
+//        notificationManager.notify(IDNOTIFICACION, builder.build());
+//
+//    }
+
 }

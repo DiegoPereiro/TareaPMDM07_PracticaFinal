@@ -3,6 +3,7 @@ package freijo.castro.diego.tareapmdm07_practicafinal.inicio.recortatorios;
 import android.app.DatePickerDialog;
 import android.app.TimePickerDialog;
 import android.content.ContentValues;
+import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -58,12 +59,26 @@ public class EditarRecordatorioAtv extends AppCompatActivity {
         BaseDatos dbatos = new BaseDatos(this, "bdPmdm", null, MainActivity.version);
         baseDatos = dbatos.getReadableDatabase();
 
+        id=getIntent().getIntExtra("id", 0);
         if (id==0){
             tvFecha.setText(new SimpleDateFormat("dd/MM/yyyy").format(hoy));
             tvHora.setText(new SimpleDateFormat("HH:mm").format(hoy));
+        }else{
+            cargarDatos();
         }
 
         controlComponentes();
+    }
+
+    private void cargarDatos() {
+        Cursor csRecordatorio=baseDatos.rawQuery("select * from recordatorios where id="+id, null);
+        if (csRecordatorio.moveToFirst()){
+            tvFecha.setText(csRecordatorio.getString(1));
+            tvHora.setText(csRecordatorio.getString(2));
+            etNotificacion.setText(csRecordatorio.getString(3));
+            cbAlarma.setChecked(Boolean.parseBoolean(csRecordatorio.getString(5)));
+        }
+
     }
 
     private void controlComponentes() {
@@ -131,14 +146,14 @@ public class EditarRecordatorioAtv extends AppCompatActivity {
             registros.put("fecha", tvFecha.getText().toString());
             registros.put("hora", tvHora.getText().toString());
             registros.put("notificacion", etNotificacion.getText().toString());
+            registros.put("destino", "recordatorio");
             registros.put("alarma", String.valueOf(cbAlarma.isChecked()));
 
             if (id==0){
                 baseDatos.insert("recordatorios", null, registros);
             }else {
-
+                baseDatos.update("recordatorios", registros, "id="+id, null);
             }
-
         }else {
             Toast.makeText(this, "Debe poner el cliente, el concepto, cantidad y el precio", Toast.LENGTH_LONG).show();
         }

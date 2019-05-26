@@ -11,9 +11,12 @@ import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.Fragment;
 import android.text.BoringLayout;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Adapter;
+import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.ListView;
@@ -86,24 +89,7 @@ public class Inicio extends Fragment {
         btnFacturar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                AlertDialog.Builder alerta = new AlertDialog.Builder(getContext());
-                alerta.setMessage("¿Seguro que desea facturar la partidas pendientes?").setCancelable(false)
-                        .setPositiveButton("Si", new DialogInterface.OnClickListener() {
-                            @Override
-                            public void onClick(DialogInterface dialog, int which) {
-                                new Facturar(getContext()).execute();
-                                dialog.cancel();
-                            }
-                        })
-                        .setNegativeButton("No", new DialogInterface.OnClickListener() {
-                            @Override
-                            public void onClick(DialogInterface dialog, int which) {
-                                dialog.cancel();
-                            }
-                        });
-                alerta.setTitle("Aviso");
-                alerta.show();
-
+                facturar();
             }
         });
         tvFecha.setText(formatoFecha.format(hoy));
@@ -114,7 +100,28 @@ public class Inicio extends Fragment {
                 startActivity(intent);
             }
         });
+
     }
+    private void facturar(){
+        AlertDialog.Builder alerta = new AlertDialog.Builder(getContext());
+        alerta.setMessage("¿Seguro que desea facturar la partidas pendientes?").setCancelable(false)
+                .setPositiveButton("Si", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        new Facturar(getContext()).execute();
+                        dialog.cancel();
+                    }
+                })
+                .setNegativeButton("No", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        dialog.cancel();
+                    }
+                });
+        alerta.setTitle("Aviso");
+        alerta.show();
+    }
+
 
     @Override
     public void onResume() {
@@ -132,21 +139,22 @@ public class Inicio extends Fragment {
 
         list.clear();
         try {
-            fecha=formatoFecha.parse("25/06/2019");
-            hora=formatoHora.parse("12:00");
+            fecha=hoy;
+            hora=formatoHora.parse("00:00");
         } catch (ParseException e) {
             e.printStackTrace();
         }
 
+        //partidas pendientes de facturas
+        Cursor csPartidasFacuras=baseDatos.rawQuery("select * from pendientes where pendientes.fecha<='"+ formatoFecha.format(fecha) +"'", null);
+        if (csPartidasFacuras.moveToFirst()){
+            recordatorio=new Recordatorio(fecha, hora, "Existen partidas pendientes de facturar", "facturar", false, 0);
+            list.add(recordatorio);
+        }
 
-        recordatorio=new Recordatorio(fecha, hora, "prueva de notificacion", "destino", true,0);
-        list.add(recordatorio);
 
         //recordatorios creados
-         Cursor csRecordatorios=baseDatos.rawQuery("select * from recordatorios where recordatorios.fecha<='28/05/2019' order by recordatorios.fecha, recordatorios.hora", null);
-
-
-
+         Cursor csRecordatorios=baseDatos.rawQuery("select * from recordatorios where recordatorios.fecha<='"+ formatoFecha.format(fecha) +"' order by recordatorios.fecha, recordatorios.hora", null);
         while (csRecordatorios.moveToNext()){
             fecha = null;
             hora = null;
@@ -159,27 +167,38 @@ public class Inicio extends Fragment {
             } catch (ParseException e) {
                 e.printStackTrace();
             }
-            recordatorio=new Recordatorio(fecha, hora, csRecordatorios.getString(3), "recordatorio", alarma, csRecordatorios.getInt(0));
+            recordatorio=new Recordatorio(fecha, hora, csRecordatorios.getString(3), csRecordatorios.getString(4), alarma, csRecordatorios.getInt(0));
             list.add(recordatorio);
         }
-
-
-
-
-
-
-
-
         adaptador=new RecordatoriosAdaptador(getContext(), list);
         lvRecordatorios.setAdapter(adaptador);
+        selectorRecordatorio(adaptador);
+
+
+    }
+
+    private void selectorRecordatorio(final Adapter adaptador) {
+        lvRecordatorios.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                Recordatorio seleccion=(Recordatorio)  adaptador.getItem(position);
+                switch (seleccion.getDestino()){
+                    case "facturar":
+                        facturar();
+                        break;
+                    case "recordatorio":
+                        Intent intent=new Intent(getContext(), EditarRecordatorioAtv.class);
+                        intent.putExtra("id", seleccion.getId());
+                        startActivity(intent);
+                        break;
+
+
+                }
 
 
 
-
-
-
-
-
+            }
+        });
     }
 
 

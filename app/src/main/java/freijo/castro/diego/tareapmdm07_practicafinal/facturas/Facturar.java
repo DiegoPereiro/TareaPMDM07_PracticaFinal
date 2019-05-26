@@ -41,13 +41,13 @@ public class Facturar extends AsyncTask<Void, Integer, Boolean> {
     @Override
     protected Boolean doInBackground(Void... voids) {
         int progreso, numero, idFactura;
-        String fecha;
+        String fecha = new SimpleDateFormat("dd/MM/yyyy").format(hoy);
         boolean resultado = false;
         float tipoIva=21;
 
 
         try {
-            Cursor csClientesFacturas = baseDatos.rawQuery("select idcliente from pendientes group by idcliente", null);
+            Cursor csClientesFacturas = baseDatos.rawQuery("select idcliente from pendientes group by idcliente having fecha<='"+fecha+"'", null);
             if (csClientesFacturas.moveToFirst()){
                 do {
                     Thread.sleep(50);
@@ -73,7 +73,7 @@ public class Facturar extends AsyncTask<Void, Integer, Boolean> {
                     idFactura = csIdFactura.getInt(0);
 
                     //consultas todas las partidas pendientes por cliente
-                    Cursor csPartidasPendientes = baseDatos.rawQuery("select * from pendientes where idcliente=" + idCliente, null);
+                    Cursor csPartidasPendientes = baseDatos.rawQuery("select * from pendientes where idcliente=" + idCliente +" and fecha<='"+ fecha+"'", null);
                     while (csPartidasPendientes.moveToNext()) {
                         ContentValues registros = new ContentValues();
                         registros.put("idfactura", idFactura);
@@ -98,6 +98,9 @@ public class Facturar extends AsyncTask<Void, Integer, Boolean> {
                         registros.put("total", total);
                         baseDatos.update("facturas", registros, "id=" + idFactura, null);
                     }
+
+                    //eliminar las partidas pendientes
+                    baseDatos.execSQL("delete from pendientes where fecha<='"+fecha+"'");
 
                     Thread.sleep(50);
                     publishProgress(progreso);
@@ -132,8 +135,6 @@ public class Facturar extends AsyncTask<Void, Integer, Boolean> {
     protected void onPostExecute(Boolean resultado) {
         super.onPostExecute(resultado);
         if (resultado){
-            //eliminar las partidas pendientes
-            baseDatos.execSQL("delete from pendientes");
             Toast.makeText(context, "Facturación correcta", Toast.LENGTH_SHORT).show();
         }
         progreso.dismiss();

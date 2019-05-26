@@ -11,6 +11,7 @@ import android.widget.EditText;
 import android.widget.Toast;
 
 import freijo.castro.diego.tareapmdm07_practicafinal.basedatos.BaseDatos;
+import freijo.castro.diego.tareapmdm07_practicafinal.inicio.alarma.Alarma;
 
 public class MainActivity extends AppCompatActivity {
     public static final int version = 1;
@@ -36,6 +37,7 @@ public class MainActivity extends AppCompatActivity {
             baseDatos.execSQL("INSERT INTO usuarios (usuario, contraseña) VALUES ('DIEGO', '1234')");
         }
 
+
     }
 
     public void iniciarSesion(View view) {
@@ -46,8 +48,9 @@ public class MainActivity extends AppCompatActivity {
         if (!usuario.equals("") && !constraseña.equals("")) {
             Cursor csUsuario = baseDatos.rawQuery("select * from usuarios where usuario='" + usuario + "' and contraseña='" + constraseña + "'", null);
             if (csUsuario.moveToFirst()) {
-                Intent intent = new Intent(this, Principal.class);
-                startActivity(intent);
+                //abrir pantalla principal
+                Intent itPrincipal = new Intent(this, Principal.class);
+                startActivity(itPrincipal);
                 finish();
             } else {
                 Toast.makeText(this, "Credenciales incorrectas", Toast.LENGTH_SHORT).show();
@@ -55,7 +58,6 @@ public class MainActivity extends AppCompatActivity {
         } else {
             Toast.makeText(this, "Debe poner el usuario y la contraseña", Toast.LENGTH_SHORT).show();
         }
-
 
     }
 }

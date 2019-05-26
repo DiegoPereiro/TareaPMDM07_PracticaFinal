@@ -57,8 +57,10 @@ public class RecordatoriosAdaptador extends BaseAdapter {
                 ivRecordatorio.setImageResource(R.drawable.alarmd);
                 break;
             case "destino":
-
                 ivRecordatorio.setImageResource(R.drawable.cronometro48);
+                break;
+            case "facturar":
+                ivRecordatorio.setImageResource(R.drawable.nuevo_documento48);
                 break;
         }
 
